@@ -4,7 +4,7 @@ POST http://localhost:8081/demo/tracer
 Content-Type: application/json
 
 {
-  "userName": "apple5",
+  "userName": "apple",
   "groupName": ""
 }
 
@@ -16,6 +16,27 @@ POST http://localhost:8081/demo/tracer/current-span
 Content-Type: application/json
 
 {
-  "userName": "apple6",
+  "userName": "apple",
   "groupName": ""
 }
+
+###
+
+// Showcase span creation with NewSpan on a service method.
+
+POST http://localhost:8081/demo/new-span
+Content-Type: application/json
+
+{
+  "userName": "apple9",
+  "groupName": ""
+}
+
+###
+
+// Showcase span creation with NewSpan on an interface method.
+
+GET http://localhost:8081/demo/new-span/repository/apple8
+Accept: application/json
+
+###
