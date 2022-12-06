@@ -196,3 +196,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# docker-compose data folders
+docker-compose/**/data

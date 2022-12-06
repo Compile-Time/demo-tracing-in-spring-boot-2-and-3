@@ -1,0 +1,83 @@
+networks:
+  grafana:
+  db:
+
+services:
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    networks:
+      - grafana
+    command:
+      - --enable-feature=exemplar-storage
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  loki:
+    container_name: loki
+    image: grafana/loki
+    networks:
+      - grafana
+    ports:
+      - "3100:3100"
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+    environment:
+      - JAEGER_AGENT_HOST=tempo
+      - JAEGER_ENDPOINT=http://tempo:14268/api/traces # send traces to Tempo
+      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_PARAM=1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  tempo:
+    container_name: tempo
+    image: grafana/tempo
+    networks:
+      - grafana
+    command:
+      - -config.file=/etc/tempo.yaml
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml:ro
+      - ./tempo/data:/tmp/tempo
+    ports:
+      - "14268"  # jaeger ingest
+      - "3200:3200"   # tempo
+      - "9411:9411"   # zipkin
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-oss
+    networks:
+      - grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  postgresql:
+    container_name: postgresql
+    # Use version 14 to resolve flyway warning about recommend postgresql version.
+    image: postgres:14
+    networks:
+      - db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
