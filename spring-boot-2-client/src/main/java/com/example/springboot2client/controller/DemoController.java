@@ -72,4 +72,19 @@ public class DemoController {
 
         return userResponse;
     }
+
+    @PostMapping("continue-span")
+    public ResponseEntity<UserCreationResult> demoContinueSpan(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("continue-span/users", creationRequest);
+    }
+
+    @PostMapping("continue-span/tag-resolver")
+    public ResponseEntity<UserCreationResult> demoSpanTagResolver(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("continue-span/users/tag-resolver", creationRequest);
+    }
+
+    @PostMapping("continue-span/expression")
+    public ResponseEntity<UserCreationResult> demoSpanTagExpression(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("continue-span/users/expression", creationRequest);
+    }
 }
