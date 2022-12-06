@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'io.freefair.lombok'
+}
+
+group 'com.example'
+version '1.0.0'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5Version"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+}
+
+test {
+    useJUnitPlatform()
+}

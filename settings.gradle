@@ -1,1 +1,12 @@
+pluginManagement {
+    plugins {
+        id "io.freefair.lombok" version "$freefairLombokVersion"
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'demo-tracing-in-spring-boot-2-and-3'
+
+include 'common-interface'
