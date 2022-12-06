@@ -1,4 +1,4 @@
-package at.openvalue.springboot3client;
+package com.example.springboot3client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
