@@ -39,7 +39,7 @@ public class DemoController {
     }
 
     @PostMapping("tracer")
-    public ResponseEntity<UserCreationResult> createGroup(@RequestBody final UserCreationRequest creationRequest) {
+    public ResponseEntity<UserCreationResult> demoSpanCreationWithTracer(@RequestBody final UserCreationRequest creationRequest) {
         final Span newSpan = this.tracer.nextSpan().name("request new user for tracer sample");
         try (final var ignore = this.tracer.withSpan(newSpan)) {
             return requestUserCreation("tracer/users", creationRequest);
@@ -49,7 +49,7 @@ public class DemoController {
     }
 
     @PostMapping("tracer/current-span")
-    public ResponseEntity<UserCreationResult> createGroupCurrentSpan(@RequestBody final UserCreationRequest creationRequest) {
+    public ResponseEntity<UserCreationResult> demoSpanModificationWithTracer(@RequestBody final UserCreationRequest creationRequest) {
         Optional.ofNullable(this.tracer.currentSpan())
                 .ifPresent(span -> span.event("request new user for tracer with current span sample"));
         return requestUserCreation("tracer/users/current-span", creationRequest);
@@ -57,13 +57,13 @@ public class DemoController {
 
     @PostMapping("new-span")
     @NewSpan(name = "request new user for @NewSpan sample")
-    public ResponseEntity<UserCreationResult> createUser(@RequestBody final UserCreationRequest creationRequest) {
+    public ResponseEntity<UserCreationResult> demoSpanCreationWithNewSpan(@RequestBody final UserCreationRequest creationRequest) {
         return requestUserCreation("new-span/users", creationRequest);
     }
 
     @GetMapping("new-span/repository/{userName}")
     @NewSpan(name = "request new user for @NewSpan sample with repository span")
-    public ResponseEntity<User> createUserRepositorySpan(@PathVariable("userName") final String userName) {
+    public ResponseEntity<User> demoRepositorySpanCreation(@PathVariable("userName") final String userName) {
         log.info("Request user with name '{}'", userName);
 
         final var userResponse = restTemplate.getForEntity(String.format("%s/%s/%s", LOCAL_HOST, "new-span/users", userName), User.class);
