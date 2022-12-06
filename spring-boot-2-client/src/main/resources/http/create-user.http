@@ -1,0 +1,21 @@
+// Showcase span creation with the tracer interface.
+
+POST http://localhost:8081/demo/tracer
+Content-Type: application/json
+
+{
+  "userName": "apple5",
+  "groupName": ""
+}
+
+###
+
+// Showcase span modification on the current span with the tracer interface.
+
+POST http://localhost:8081/demo/tracer/current-span
+Content-Type: application/json
+
+{
+  "userName": "apple6",
+  "groupName": ""
+}
