@@ -1,5 +1,6 @@
 package com.example.springboot3server.config;
 
+import com.example.springboot3server.observationconfig.FileCreationObservationHandler;
 import com.example.springboot3server.observationconfig.FileCreationObservationPredicate;
 import com.example.springboot3server.observationconfig.RegionObservationFilter;
 import io.micrometer.observation.ObservationRegistry;
@@ -20,6 +21,7 @@ public class ObservationRegistryConfig implements ObservationRegistryCustomizer<
         log.debug("Using following region for observation filter: {}", region);
         registry.observationConfig()
                 .observationFilter(new RegionObservationFilter(region))
-                .observationPredicate(new FileCreationObservationPredicate());
+                .observationPredicate(new FileCreationObservationPredicate())
+                .observationHandler(new FileCreationObservationHandler());
     }
 }
