@@ -1,0 +1,78 @@
+// Showcase span creation with the tracer interface.
+
+POST http://localhost:8081/demo/tracer
+Content-Type: application/json
+
+{
+  "userName": "apple",
+  "groupName": ""
+}
+
+###
+
+// Showcase span modification on the current span with the tracer interface.
+
+POST http://localhost:8081/demo/tracer/current-span
+Content-Type: application/json
+
+{
+  "userName": "apple2",
+  "groupName": ""
+}
+
+###
+
+// Showcase span creation with NewSpan on a service method.
+
+POST http://localhost:8081/demo/new-span
+Content-Type: application/json
+
+{
+  "userName": "apple3",
+  "groupName": ""
+}
+
+###
+
+// Showcase span creation with NewSpan on an interface method.
+
+GET http://localhost:8081/demo/new-span/repository/apple4
+Accept: application/json
+
+###
+
+// Showcase span modification on the current span with ContinueSpan annotation.
+
+POST http://localhost:8081/demo/continue-span
+Content-Type: application/json
+
+{
+  "userName": "apple5",
+  "groupName": ""
+}
+
+###
+
+// Showcase custom TagValueResolver for SpanTag in a ContinueSpan method.
+
+POST http://localhost:8081/demo/continue-span/tag-resolver
+Content-Type: application/json
+
+{
+  "userName": "apple6",
+  "groupName": ""
+}
+
+###
+
+// Showcase expression for SpanTag in a ContinueSpan method.
+
+POST http://localhost:8081/demo/continue-span/expression
+Content-Type: application/json
+
+{
+  "userName": "apple7",
+  "groupName": ""
+}
+
+###
