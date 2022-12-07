@@ -3,6 +3,7 @@ package com.example.springboot2client.controller;
 import com.example.commoninterface.user.User;
 import com.example.commoninterface.user.UserCreationRequest;
 import com.example.commoninterface.user.UserCreationResult;
+import com.example.springboot2client.config.RestTemplateProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.sleuth.Span;
@@ -20,14 +21,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DemoController {
 
-    private static final String LOCAL_HOST = "http://localhost:8080";
-
+    private final RestTemplateProperties restTemplateProperties;
     private final Tracer tracer;
     private final RestTemplate restTemplate;
 
     private ResponseEntity<UserCreationResult> requestUserCreation(final String restEndpoint, final UserCreationRequest creationRequest) {
         log.info("Creating new user (with group) with the following data: {}", creationRequest);
-        final var requestUrl = String.format("%s/%s", LOCAL_HOST, restEndpoint);
+        final var requestUrl = String.format("%s/%s", restTemplateProperties.getUrl(), restEndpoint);
 
         final var response = restTemplate.postForEntity(requestUrl, creationRequest, UserCreationResult.class);
         Optional.ofNullable(response.getBody())
@@ -66,7 +66,8 @@ public class DemoController {
     public ResponseEntity<User> demoRepositorySpanCreation(@PathVariable("userName") final String userName) {
         log.info("Request user with name '{}'", userName);
 
-        final var userResponse = restTemplate.getForEntity(String.format("%s/%s/%s", LOCAL_HOST, "new-span/users", userName), User.class);
+        final var userResponse = restTemplate.getForEntity(
+                String.format("%s/%s/%s", restTemplateProperties.getUrl(), "new-span/users", userName), User.class);
         Optional.ofNullable(userResponse.getBody())
                 .ifPresent(user -> log.info("Received user {}", user));
 
