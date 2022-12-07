@@ -62,10 +62,43 @@ POST http://localhost:8091/demo/observation/custom-convention
 Content-Type: application/json
 
 {
-  "fileName": "test411",
+  "fileName": "test4",
   "userName": "apple",
   "groupName": "apple",
   "userPermissions": "rw",
   "groupPermissions": "rw",
   "otherPermissions": ""
 }
+
+###
+
+// {{
+// Showcase observation predicate ignoring observations for the user 'logger'.
+
+// Create a 'logger' user
+POST http://localhost:8091/demo/tracer
+Content-Type: application/json
+
+{
+  "userName": "logger"
+}
+
+###
+
+// Create a file with the logger user. No observation should be visible in Grafana.
+
+POST http://localhost:8091/demo/observation/convention
+Content-Type: application/json
+
+{
+  "fileName": "test5",
+  "userName": "logger",
+  "groupName": "logger",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}
+
+###
+
+// }}
