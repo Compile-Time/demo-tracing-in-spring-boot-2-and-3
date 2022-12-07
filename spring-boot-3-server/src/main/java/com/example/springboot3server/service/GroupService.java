@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +23,10 @@ public class GroupService {
         return groupRepository.save(Group.builder()
                 .name(groupName)
                 .build());
+    }
+
+    public Optional<Group> findByGroupName(final String groupName) {
+        return groupRepository.findByName(groupName);
     }
 
 }

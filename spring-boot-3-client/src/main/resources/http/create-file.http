@@ -1,0 +1,21 @@
+// Important: You need a user for file creation
+POST http://localhost:8091/demo/tracer
+Content-Type: application/json
+
+{
+  "userName": "apple"
+}
+
+###
+
+POST http://localhost:8091/demo/observation
+Content-Type: application/json
+
+{
+  "fileName": "test",
+  "userName": "apple",
+  "groupName": "apple",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}

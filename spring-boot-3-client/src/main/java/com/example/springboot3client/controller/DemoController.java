@@ -1,8 +1,11 @@
 package com.example.springboot3client.controller;
 
+import com.example.commoninterface.file.FileCreationRequest;
+import com.example.commoninterface.file.FileCreationResponse;
 import com.example.commoninterface.user.User;
 import com.example.commoninterface.user.UserCreationRequest;
 import com.example.commoninterface.user.UserCreationResult;
+import com.example.springboot3client.config.RestTemplateProperties;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.NewSpan;
@@ -20,19 +23,33 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DemoController {
 
-    private static final String LOCAL_HOST = "http://localhost:8080";
+    private final RestTemplateProperties restTemplateProperties;
 
     private final Tracer tracer;
     private final RestTemplate restTemplate;
 
     private ResponseEntity<UserCreationResult> requestUserCreation(final String restEndpoint, final UserCreationRequest creationRequest) {
         log.info("Creating new user (with group) with the following data: {}", creationRequest);
-        final var requestUrl = String.format("%s/%s", LOCAL_HOST, restEndpoint);
+        final var requestUrl = String.format("%s/%s", restTemplateProperties.getUrl(), restEndpoint);
 
         final var response = restTemplate.postForEntity(requestUrl, creationRequest, UserCreationResult.class);
         Optional.ofNullable(response.getBody())
                 .ifPresent(userAndGroup ->
                         log.info("User and group created: {} - {}", userAndGroup.userName(), userAndGroup.groupName())
+                );
+
+        return response;
+    }
+
+    private ResponseEntity<FileCreationResponse> requestFileCreation(final String restEndpoint,
+                                                                     final FileCreationRequest creationRequest) {
+        log.info("Creating new file with the following data: {}", creationRequest);
+        final var requestUrl = String.format("%s/%s", restTemplateProperties.getUrl(), restEndpoint);
+
+        final var response = restTemplate.postForEntity(requestUrl, creationRequest, FileCreationResponse.class);
+        Optional.ofNullable(response.getBody())
+                .ifPresent(fileResponse ->
+                        log.info("File data: {}", fileResponse)
                 );
 
         return response;
@@ -66,7 +83,8 @@ public class DemoController {
     public ResponseEntity<User> demoRepositorySpanCreation(@PathVariable("userName") final String userName) {
         log.info("Request user with name '{}'", userName);
 
-        final var userResponse = restTemplate.getForEntity(String.format("%s/%s/%s", LOCAL_HOST, "new-span/users", userName), User.class);
+        final var userResponse = restTemplate.getForEntity(String.format("%s/%s/%s", restTemplateProperties.getUrl(), "new-span/users", userName),
+                User.class);
         Optional.ofNullable(userResponse.getBody())
                 .ifPresent(user -> log.info("Received user {}", user));
 
@@ -86,5 +104,10 @@ public class DemoController {
     @PostMapping("continue-span/expression")
     public ResponseEntity<UserCreationResult> demoSpanTagExpression(@RequestBody final UserCreationRequest creationRequest) {
         return requestUserCreation("continue-span/users/expression", creationRequest);
+    }
+
+    @PostMapping("observation")
+    public ResponseEntity<FileCreationResponse> demoObservation(@RequestBody final FileCreationRequest creationRequest) {
+        return requestFileCreation("observation/files", creationRequest);
     }
 }
