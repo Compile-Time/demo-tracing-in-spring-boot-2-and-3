@@ -40,7 +40,7 @@ Content-Type: application/json
 
 ###
 
-// Showcase observation API with convention and context
+// Showcase observation API with convention and context.
 
 POST http://localhost:8091/demo/observation/convention
 Content-Type: application/json
@@ -56,7 +56,7 @@ Content-Type: application/json
 
 ###
 
-// Showcase observation API with an overriden convention + context
+// Showcase observation API with an overriden convention + context.
 
 POST http://localhost:8091/demo/observation/custom-convention
 Content-Type: application/json
@@ -105,13 +105,29 @@ Content-Type: application/json
 
 ###
 
-// Showcase observation documentation
+// Showcase observation documentation.
 
 POST http://localhost:8091/demo/observation-documentation
 Content-Type: application/json
 
 {
   "fileName": "test6",
+  "userName": "apple",
+  "groupName": "apple",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}
+
+###
+
+// Showcase observed annotation.
+
+POST http://localhost:8091/demo/observed
+Content-Type: application/json
+
+{
+  "fileName": "test7",
   "userName": "apple",
   "groupName": "apple",
   "userPermissions": "rw",

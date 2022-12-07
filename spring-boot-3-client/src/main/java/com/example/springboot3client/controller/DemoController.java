@@ -8,6 +8,7 @@ import com.example.commoninterface.user.UserCreationResult;
 import com.example.springboot3client.config.RestTemplateProperties;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.NewSpan;
@@ -156,4 +157,14 @@ public class DemoController {
                 .contextualName("observation documentation sample")
                 .observe(() -> requestFileCreation("observation-documentation/files", creationRequest));
     }
+
+    @PostMapping("observed")
+    @Observed(
+            name = "request.file.creation",
+            contextualName = "observation created by observed annotation"
+    )
+    public ResponseEntity<FileCreationResponse> demoObservedAnnotation(@RequestBody final FileCreationRequest creationRequest) {
+        return requestFileCreation("observed/files", creationRequest);
+    }
+
 }
