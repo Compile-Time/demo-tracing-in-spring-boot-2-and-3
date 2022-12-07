@@ -110,4 +110,9 @@ public class DemoController {
     public ResponseEntity<FileCreationResponse> demoObservation(@RequestBody final FileCreationRequest creationRequest) {
         return requestFileCreation("observation/files", creationRequest);
     }
+
+    @PostMapping("observation-scope")
+    public ResponseEntity<FileCreationResponse> demoObservationScoped(@RequestBody final FileCreationRequest creationRequest) {
+        return requestFileCreation("observation-scope/files", creationRequest);
+    }
 }

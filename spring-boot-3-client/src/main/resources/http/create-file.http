@@ -1,4 +1,4 @@
-// Important: You need a user for file creation
+// Important: You need a user for file creation.
 POST http://localhost:8091/demo/tracer
 Content-Type: application/json
 
@@ -8,11 +8,29 @@ Content-Type: application/json
 
 ###
 
+// Showcase observation API.
+
 POST http://localhost:8091/demo/observation
 Content-Type: application/json
 
 {
   "fileName": "test",
+  "userName": "apple",
+  "groupName": "apple",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}
+
+###
+
+// Showcase observation API with manual scope.
+
+POST http://localhost:8091/demo/observation-scope
+Content-Type: application/json
+
+{
+  "fileName": "test2",
   "userName": "apple",
   "groupName": "apple",
   "userPermissions": "rw",
