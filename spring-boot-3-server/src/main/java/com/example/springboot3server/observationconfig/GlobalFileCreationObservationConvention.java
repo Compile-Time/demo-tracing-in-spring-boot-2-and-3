@@ -40,6 +40,6 @@ public class GlobalFileCreationObservationConvention implements GlobalObservatio
 
     @Override
     public String getContextualName(final FileCreationObservationContext ignored) {
-        return "create file for user and group";
+        return "observation with global convention";
     }
 }

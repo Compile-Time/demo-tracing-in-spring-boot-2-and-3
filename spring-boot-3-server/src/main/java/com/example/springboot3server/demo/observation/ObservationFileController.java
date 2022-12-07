@@ -17,6 +17,7 @@ public class ObservationFileController {
 
     private final ObservationFileCreationService observationFileCreationService;
     private final ObservationConventionFileCreationService observationConventionFileCreationService;
+    private final ObservationCustomConventionFileCreationService observationCustomConventionFileCreationService;
 
     private ResponseEntity<FileCreationResponse> createResponse(final File file) {
         return ResponseEntity.ok(FileCreationResponse.builder()
@@ -37,6 +38,11 @@ public class ObservationFileController {
     @PostMapping("/convention")
     public ResponseEntity<FileCreationResponse> postFileConvention(@RequestBody final FileCreationRequest creationRequest) {
         return createResponse(observationConventionFileCreationService.create(creationRequest));
+    }
+
+    @PostMapping("/custom-convention")
+    public ResponseEntity<FileCreationResponse> postFileOverrideConvention(@RequestBody final FileCreationRequest creationRequest) {
+        return createResponse(observationCustomConventionFileCreationService.create(creationRequest));
     }
 
 }

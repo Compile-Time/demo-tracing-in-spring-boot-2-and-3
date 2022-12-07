@@ -53,3 +53,19 @@ Content-Type: application/json
   "groupPermissions": "rw",
   "otherPermissions": ""
 }
+
+###
+
+// Showcase observation API with an overriden convention + context
+
+POST http://localhost:8091/demo/observation/custom-convention
+Content-Type: application/json
+
+{
+  "fileName": "test411",
+  "userName": "apple",
+  "groupName": "apple",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}
