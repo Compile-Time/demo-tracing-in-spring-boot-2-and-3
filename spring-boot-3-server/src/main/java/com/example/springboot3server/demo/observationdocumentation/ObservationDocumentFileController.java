@@ -1,4 +1,4 @@
-package com.example.springboot3server.demo.observationscope;
+package com.example.springboot3server.demo.observationdocumentation;
 
 import com.example.commoninterface.file.FileCreationRequest;
 import com.example.commoninterface.file.FileCreationResponse;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("observation-scope/files")
+@RequestMapping("/observation-documentation/files")
 @RequiredArgsConstructor
-public class ObservationScopeFileController {
+public class ObservationDocumentFileController {
 
-    private final ObservationScopeFileCreationService observationScopeFileCreationService;
+    private final ObservationDocumentFileCreationService observationDocumentFileCreationService;
 
     @PostMapping
     public ResponseEntity<FileCreationResponse> postFile(@RequestBody final FileCreationRequest creationRequest) {
-        final var file = observationScopeFileCreationService.create(creationRequest);
+        final var file = observationDocumentFileCreationService.create(creationRequest);
         return ResponseEntity.ok(FileCreationResponseMapper.map(file));
     }
 

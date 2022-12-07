@@ -149,4 +149,11 @@ public class DemoController {
                 .contextualName("observation with custom convention")
                 .observe(() -> requestFileCreation("observation/files/custom-convention", creationRequest));
     }
+
+    @PostMapping("observation-documentation")
+    public ResponseEntity<FileCreationResponse> demoObservationDocumentation(@RequestBody final FileCreationRequest creationRequest) {
+        return Observation.createNotStarted("request.file.creation", observationRegistry)
+                .contextualName("observation documentation sample")
+                .observe(() -> requestFileCreation("observation-documentation/files", creationRequest));
+    }
 }

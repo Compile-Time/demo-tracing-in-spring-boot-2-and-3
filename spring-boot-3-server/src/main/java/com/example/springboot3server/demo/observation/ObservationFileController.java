@@ -3,6 +3,7 @@ package com.example.springboot3server.demo.observation;
 import com.example.commoninterface.file.FileCreationRequest;
 import com.example.commoninterface.file.FileCreationResponse;
 import com.example.springboot3server.entity.File;
+import com.example.springboot3server.util.FileCreationResponseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,14 +21,7 @@ public class ObservationFileController {
     private final ObservationCustomConventionFileCreationService observationCustomConventionFileCreationService;
 
     private ResponseEntity<FileCreationResponse> createResponse(final File file) {
-        return ResponseEntity.ok(FileCreationResponse.builder()
-                .fileName(file.getName())
-                .userName(file.getUser().getName())
-                .groupName(file.getGroup().getName())
-                .userPermissions(file.getUserPermission().getPermissionString())
-                .groupPermissions(file.getGroupPermission().getPermissionString())
-                .otherPermissions(file.getOtherPermission().getPermissionString())
-                .build());
+        return ResponseEntity.ok(FileCreationResponseMapper.map(file));
     }
 
     @PostMapping

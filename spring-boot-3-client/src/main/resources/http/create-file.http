@@ -102,3 +102,19 @@ Content-Type: application/json
 ###
 
 // }}
+
+###
+
+// Showcase observation documentation
+
+POST http://localhost:8091/demo/observation-documentation
+Content-Type: application/json
+
+{
+  "fileName": "test6",
+  "userName": "apple",
+  "groupName": "apple",
+  "userPermissions": "rw",
+  "groupPermissions": "rw",
+  "otherPermissions": ""
+}
