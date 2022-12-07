@@ -2,6 +2,7 @@ package com.example.springboot3server.config;
 
 import com.example.springboot3server.observationconfig.FileCreationObservationHandler;
 import com.example.springboot3server.observationconfig.FileCreationObservationPredicate;
+import com.example.springboot3server.observationconfig.GlobalFileCreationObservationConvention;
 import com.example.springboot3server.observationconfig.RegionObservationFilter;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class ObservationRegistryConfig implements ObservationRegistryCustomizer<
         registry.observationConfig()
                 .observationFilter(new RegionObservationFilter(region))
                 .observationPredicate(new FileCreationObservationPredicate())
-                .observationHandler(new FileCreationObservationHandler());
+                .observationHandler(new FileCreationObservationHandler())
+                .observationConvention(new GlobalFileCreationObservationConvention());
     }
 }
