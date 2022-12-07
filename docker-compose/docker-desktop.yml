@@ -1,3 +1,5 @@
+version: '3'
+
 networks:
   grafana:
   db:
@@ -60,7 +62,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./grafana/data:/var/lib/grafana
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
     environment:
