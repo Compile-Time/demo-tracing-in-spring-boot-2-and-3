@@ -6,6 +6,8 @@ import com.example.commoninterface.user.User;
 import com.example.commoninterface.user.UserCreationRequest;
 import com.example.commoninterface.user.UserCreationResult;
 import com.example.springboot3client.config.RestTemplateProperties;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.NewSpan;
@@ -27,6 +29,7 @@ public class DemoController {
 
     private final Tracer tracer;
     private final RestTemplate restTemplate;
+    private final ObservationRegistry observationRegistry;
 
     private ResponseEntity<UserCreationResult> requestUserCreation(final String restEndpoint, final UserCreationRequest creationRequest) {
         log.info("Creating new user (with group) with the following data: {}", creationRequest);
@@ -108,11 +111,26 @@ public class DemoController {
 
     @PostMapping("observation")
     public ResponseEntity<FileCreationResponse> demoObservation(@RequestBody final FileCreationRequest creationRequest) {
-        return requestFileCreation("observation/files", creationRequest);
+        return Observation.createNotStarted("request.file.creation", observationRegistry)
+                .contextualName(String.format("request creation of file for user '%s' and group '%s' (Observation API)",
+                        creationRequest.userName(), creationRequest.groupName()))
+                .observe(() -> requestFileCreation("observation/files", creationRequest));
     }
 
     @PostMapping("observation-scope")
     public ResponseEntity<FileCreationResponse> demoObservationScoped(@RequestBody final FileCreationRequest creationRequest) {
-        return requestFileCreation("observation-scope/files", creationRequest);
+        final var observation = Observation.start("request.file.creation", observationRegistry);
+
+        try (final var ignored = observation.openScope()) {
+            observation.contextualName(
+                    String.format("request creation of file for user '%s' and group '%s' (Observation scope)",
+                            creationRequest.userName(), creationRequest.groupName()));
+            observation.event(Observation.Event.of("start request file creation"));
+
+            return requestFileCreation("observation-scope/files", creationRequest);
+        } finally {
+            observation.event(Observation.Event.of("end request file creation"));
+            observation.stop();
+        }
     }
 }
