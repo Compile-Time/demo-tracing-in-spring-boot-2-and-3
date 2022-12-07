@@ -1,0 +1,44 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "user" {
+    * id: number <<generated>>
+    --
+    * user_name: text
+}
+
+entity "group" {
+    * id: number <<generated>>
+    --
+    * user_name: text
+}
+
+entity "user_groups" {
+    * id: number <<generated>>
+    --
+    * user_id: number
+    * group_id: number
+}
+
+entity "file" {
+    * id: number <<generated>>
+    --
+    * name: text
+    * user_id: number
+    * group_id: number
+    user_permissions: text
+    group_permissions: text
+    other_permissions: text
+}
+
+"user" ||..o "user_groups"
+"group" ||..o "user_groups"
+"file" ||..|| "group"
+"file" ||..|| "user"
+
+@enduml
