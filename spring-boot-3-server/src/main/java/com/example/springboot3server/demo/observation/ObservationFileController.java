@@ -2,6 +2,7 @@ package com.example.springboot3server.demo.observation;
 
 import com.example.commoninterface.file.FileCreationRequest;
 import com.example.commoninterface.file.FileCreationResponse;
+import com.example.springboot3server.entity.File;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ObservationFileController {
 
     private final ObservationFileCreationService observationFileCreationService;
+    private final ObservationConventionFileCreationService observationConventionFileCreationService;
 
-    @PostMapping
-    public ResponseEntity<FileCreationResponse> postFile(@RequestBody final FileCreationRequest creationRequest) {
-        final var file = observationFileCreationService.create(creationRequest);
+    private ResponseEntity<FileCreationResponse> createResponse(final File file) {
         return ResponseEntity.ok(FileCreationResponse.builder()
                 .fileName(file.getName())
                 .userName(file.getUser().getName())
@@ -27,6 +27,16 @@ public class ObservationFileController {
                 .groupPermissions(file.getGroupPermission().getPermissionString())
                 .otherPermissions(file.getOtherPermission().getPermissionString())
                 .build());
+    }
+
+    @PostMapping
+    public ResponseEntity<FileCreationResponse> postFile(@RequestBody final FileCreationRequest creationRequest) {
+        return createResponse(observationFileCreationService.create(creationRequest));
+    }
+
+    @PostMapping("/convention")
+    public ResponseEntity<FileCreationResponse> postFileConvention(@RequestBody final FileCreationRequest creationRequest) {
+        return createResponse(observationConventionFileCreationService.create(creationRequest));
     }
 
 }

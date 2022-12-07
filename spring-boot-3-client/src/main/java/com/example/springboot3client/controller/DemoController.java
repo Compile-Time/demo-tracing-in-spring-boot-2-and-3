@@ -133,4 +133,13 @@ public class DemoController {
             observation.stop();
         }
     }
+
+    @PostMapping("observation/convention")
+    public ResponseEntity<FileCreationResponse> demoObservationWithConvention(@RequestBody final FileCreationRequest creationRequest) {
+        return Observation.createNotStarted("request.file.creation", observationRegistry)
+                .contextualName(
+                        String.format("request creation of file for user '%s' and group '%s' (Observation with Convention)",
+                                creationRequest.userName(), creationRequest.groupName()))
+                .observe(() -> requestFileCreation("observation/files/convention", creationRequest));
+    }
 }
