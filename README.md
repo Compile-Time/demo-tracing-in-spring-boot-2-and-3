@@ -39,10 +39,18 @@ If you are using ...
 
 ## Database model
 
+The domain is based on this model.
+
 ![Database model](database_model.png)
 
 The model is documented as a PlantUML document here:
 [database_model.puml](database_model.puml)
+
+## Observation documentation documents
+
+To take a look at the generated observation documentation documents the folder
+[observation-documentation-documents](observation-documentation-documents)
+has been pushed into the git history.
 
 ## Running the demo
 

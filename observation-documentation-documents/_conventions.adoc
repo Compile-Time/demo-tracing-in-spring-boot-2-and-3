@@ -1,0 +1,16 @@
+[[observability-conventions]]
+=== Observability - Conventions
+
+Below you can find a list of all `GlobalObservabilityConventions` and `ObservabilityConventions` declared by this project.
+
+.GlobalObservationConvention implementations
+|===
+|GlobalObservationConvention Class Name | Applicable ObservationContext Class Name
+|`com.example.springboot3server.observationconfig.GlobalFileCreationObservationConvention`|`FileCreationObservationContext`
+|===
+
+.ObservationConvention implementations
+|===
+|ObservationConvention Class Name | Applicable ObservationContext Class Name
+|`com.example.springboot3server.observationconfig.CustomFileCreationObservationConvention`|`FileCreationObservationContext`
+|===

@@ -1,0 +1,44 @@
+[[observability-metrics]]
+=== Observability - Metrics
+
+Below you can find a list of all metrics declared by this project.
+
+[[observability-metrics-file-creation]]
+==== File Creation
+
+____
+Observe the creation of a new file for a specific user.
+____
+
+**Metric name** `file.creation` (defined by convention class `com.example.springboot3server.observationconfig.GlobalFileCreationObservationConvention`). **Type** `timer`.
+
+**Metric name** `file.creation.active` (defined by convention class `com.example.springboot3server.observationconfig.GlobalFileCreationObservationConvention`). **Type** `long task timer`.
+
+IMPORTANT: KeyValues that are added after starting the Observation might be missing from the *.active metrics.
+
+IMPORTANT: Micrometer internally uses `nanoseconds` for the baseunit.
+However, each backend determines the actual baseunit. (i.e. Prometheus uses seconds)
+
+Fully qualified name of the enclosing class `com.example.springboot3server.observationdocumentation.FileCreationObservationDocumentation`.
+
+IMPORTANT: All tags must be prefixed with `file` prefix!
+
+.Low cardinality Keys
+[cols="a,a"]
+|===
+|Name | Description
+|`file.group.name` _(required)_|Name of the group for which a file was created.
+|`file.user.name` _(required)_|Name of the user for which a file was created.
+|===
+
+.High cardinality Keys
+[cols="a,a"]
+|===
+|Name | Description
+|`file.name` _(required)_|Name of the created file.
+|`file.permission.group` _(required)_|Group permissions of the created file.
+|`file.permission.other` _(required)_|Permissions for all other users and groups of the created file.
+|`file.permission.user` _(required)_|User permissions of the created file.
+|===
+
+
