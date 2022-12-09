@@ -11,7 +11,7 @@ import org.springframework.boot.actuate.autoconfigure.observation.ObservationReg
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ObservationRegistryConfig implements ObservationRegistryCustomizer<ObservationRegistry> {
 
     @Value("${region}")
