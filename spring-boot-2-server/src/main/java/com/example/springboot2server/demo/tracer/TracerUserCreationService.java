@@ -20,10 +20,7 @@ public class TracerUserCreationService {
     @Transactional
     public UserGroup create(final UserCreationRequest creationRequest) {
         final var newSpan = this.tracer.nextSpan()
-                .name(String.format(
-                        "Create new user '%s' with group '%s'",
-                        creationRequest.userName(), creationRequest.groupName()
-                ));
+                .name(String.format("create new user %s", creationRequest.userName()));
 
         try (final var ignored = this.tracer.withSpan(newSpan.start())) {
             newSpan.tag("user.name", creationRequest.userName());
