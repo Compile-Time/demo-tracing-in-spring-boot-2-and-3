@@ -75,6 +75,14 @@ all services run on different ports.
 
 The client projects contain `http` files in `resources/http/` to run the demos.
 
+If you want to clear the data in the docker postgres database you can run
+the following scripts for each Spring Boot version respectively.
+
+```sh
+spring-boot-2-server/src/main/resources/db/cleanup/wipe-tables.sql
+spring-boot-3-server/src/main/resources/db/cleanup/wipe-tables.sql
+```
+
 ## Resources used to build this demo
 
 Code:
