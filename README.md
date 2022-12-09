@@ -23,19 +23,13 @@ to be present:
 - Zipkin or Zipkin compliant distributed tracing system
 - Prometheus
 
-Inside the `docker-compose` folder two compose files exist to start a
-tracing infrastructure with the following components:
+Inside the [docker-compose](docker-compose) folder two compose files exist to
+start a tracing infrastructure with the following components:
 
 - Grafana
 - Grafana Loki
 - Grafana Tempo
 - Prometheus
-
-If you are using ...
-
-- `colima` on macOS run `docker-compose -f colima.yml up -d`
-- `docker-desktop` on macOS run `docker-compose -f docker-desktop.yml up -d`
-- anything other than macOS run `docker-compose -f docker-desktop.yml up -d`
 
 ## Database model
 
