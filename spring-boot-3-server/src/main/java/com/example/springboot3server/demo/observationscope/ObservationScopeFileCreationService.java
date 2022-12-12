@@ -19,9 +19,7 @@ public class ObservationScopeFileCreationService {
         final var observation = Observation.start("file.create", observationRegistry);
 
         try (final var ignored = observation.openScope()) {
-            observation.contextualName(
-                    String.format("create new file for user '%s' and group ''%s (Observation Scope)",
-                            creationRequest.userName(), creationRequest.groupName()));
+            observation.contextualName("create new file for user (Observation Scope)");
             observation.lowCardinalityKeyValue("file.user.name", creationRequest.userName());
             observation.lowCardinalityKeyValue("file.group.name", creationRequest.groupName());
             observation.highCardinalityKeyValue("file.name", creationRequest.fileName());
