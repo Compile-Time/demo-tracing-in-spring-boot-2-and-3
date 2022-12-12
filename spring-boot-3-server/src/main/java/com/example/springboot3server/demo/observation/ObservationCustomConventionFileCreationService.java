@@ -4,7 +4,6 @@ import com.example.commoninterface.file.FileCreationRequest;
 import com.example.springboot3server.entity.File;
 import com.example.springboot3server.observationconfig.CustomFileCreationObservationConvention;
 import com.example.springboot3server.observationconfig.FileCreationObservationContext;
-import com.example.springboot3server.observationconfig.GlobalFileCreationObservationConvention;
 import com.example.springboot3server.service.FileCreationService;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
@@ -21,7 +20,6 @@ public class ObservationCustomConventionFileCreationService {
     public File create(final FileCreationRequest creationRequest) {
         return Observation.createNotStarted(
                         new CustomFileCreationObservationConvention(),
-                        new GlobalFileCreationObservationConvention(),
                         () -> FileCreationObservationContext.from(creationRequest),
                         observationRegistry
                 ).contextualName("observation with overridden convention")
