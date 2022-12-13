@@ -17,8 +17,7 @@ public class ObservationFileCreationService {
 
     public File create(final FileCreationRequest creationRequest) {
         return Observation.createNotStarted("file.create", observationRegistry)
-                .contextualName(String.format("create file for user '%s' and group '%s' (Observation API)",
-                        creationRequest.userName(), creationRequest.groupName()))
+                .contextualName("create file for user (Observation API)")
                 .lowCardinalityKeyValue("file.user.name", creationRequest.userName())
                 .lowCardinalityKeyValue("file.group.name", creationRequest.groupName())
                 .highCardinalityKeyValue("file.name", creationRequest.fileName())
