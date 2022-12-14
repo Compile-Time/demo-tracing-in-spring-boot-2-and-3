@@ -65,12 +65,20 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 
 	@Override
 	public Advice getAdvice() {
-		return this.advice;
+		return Optional.ofNullable(this.advice)
+				.orElseGet(() -> {
+					this.advice = buildAdvice();
+					if (advice instanceof BeanFactoryAware) {
+						((BeanFactoryAware) this.advice).setBeanFactory(this.beanFactory);
+					}
+					return advice;
+				});
 	}
 
 	@Override
 	public Pointcut getPointcut() {
-		return this.pointcut;
+		return Optional.ofNullable(this.pointcut)
+				.orElseGet(this::buildPointcut);
 	}
 
 	private Advice buildAdvice() {
