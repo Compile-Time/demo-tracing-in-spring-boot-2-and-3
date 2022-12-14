@@ -37,8 +37,19 @@ public class DefaultSpanCreator implements NewSpanParser {
 
     @Override
     public void parse(final MethodInvocation pjp, final NewSpan newSpan, final Span span) {
-        final String name = newSpan == null || StringUtils.isEmpty(newSpan.name()) ? pjp.getMethod().getName()
-                : newSpan.name();
+        final String name;
+        if (newSpan != null) {
+            if (StringUtils.hasText(newSpan.name())) {
+                name = newSpan.name();
+            } else if (StringUtils.hasText(newSpan.value())) {
+                name = newSpan.value();
+            } else {
+                name = pjp.getMethod().getName();
+            }
+        } else {
+            name = pjp.getMethod().getName();
+        }
+
         final String changedName = SpanNameUtil.toLowerHyphen(name);
         if (log.isDebugEnabled()) {
             log.debug("For the class [" + pjp.getThis().getClass() + "] method " + "[" + pjp.getMethod().getName()
