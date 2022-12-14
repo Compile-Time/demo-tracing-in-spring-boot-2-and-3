@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.custominstrumentation.annotation;
+package com.example.sleuthannotationport.docs;
 
 import io.micrometer.common.docs.KeyName;
 import io.micrometer.tracing.Span;
@@ -31,7 +31,7 @@ import io.micrometer.tracing.docs.EventValue;
  * met
  * <p>
  * - spans are grouped within an enum - the enum implements the {@link DocumentedSpan}
- * interface - if the span contains {@link TagKey} or {@link EventValue} then those need
+ * interface - if the span contains {@link KeyName} or {@link EventValue} then those need
  * to be declared as nested enums - the {@link DocumentedSpan#getTagKeys()} and
  * {@link DocumentedSpan#getEvents()} need to call the nested enum's {@code values()}
  * method to retrieve the array of allowed keys / events

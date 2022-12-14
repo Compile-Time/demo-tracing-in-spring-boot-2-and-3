@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+
+    implementation "org.springframework:spring-beans:$springFrameworkVersion"
+    implementation "org.springframework:spring-aop:$springFrameworkVersion"
+    implementation "org.springframework:spring-expression:$springFrameworkVersion"
+    implementation "org.springframework:spring-context:$springFrameworkVersion"
+    implementation "org.springframework.boot:spring-boot-autoconfigure:$springBootAutoconfigureVersion"
+    implementation "jakarta.annotation:jakarta.annotation-api:$jakartaAnnotationApiVersion"
+
+    implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+
+    // For a reactor relevant implementation these dependencies are also required.
+    // implementation platform('io.projectreactor:reactor-bom:2022.0.0')
+    // implementation 'io.projectreactor:reactor-core'
+}
+
+test {
+    useJUnitPlatform()
+}

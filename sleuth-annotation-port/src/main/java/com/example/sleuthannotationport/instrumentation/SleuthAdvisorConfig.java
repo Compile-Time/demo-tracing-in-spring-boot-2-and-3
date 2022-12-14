@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.custominstrumentation.annotation;
+package com.example.sleuthannotationport.instrumentation;
 
 import io.micrometer.tracing.annotation.ContinueSpan;
 import io.micrometer.tracing.annotation.MethodInvocationProcessor;
@@ -34,9 +34,9 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
-import javax.annotation.PostConstruct;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -54,15 +54,6 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 	private Pointcut pointcut;
 
 	private BeanFactory beanFactory;
-
-	@PostConstruct
-	public void init() {
-		this.pointcut = buildPointcut();
-		this.advice = buildAdvice();
-		if (this.advice instanceof BeanFactoryAware) {
-			((BeanFactoryAware) this.advice).setBeanFactory(this.beanFactory);
-		}
-	}
 
 	/**
 	 * Set the {@code BeanFactory} to be used when looking up executors by qualifier.
@@ -119,7 +110,7 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 	}
 
 	/**
-	 * Checks if a class or a method is is annotated with Sleuth related annotations.
+	 * Checks if a class or a method is annotated with Sleuth related annotations.
 	 */
 	private final class AnnotationClassOrMethodOrArgsPointcut extends DynamicMethodMatcherPointcut {
 
