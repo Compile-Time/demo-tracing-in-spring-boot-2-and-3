@@ -14,5 +14,5 @@ include 'spring-boot-2-client'
 include 'spring-boot-2-server'
 include 'spring-boot-3-client'
 include 'spring-boot-3-server'
-include 'custom-instrumentation'
+include 'sleuth-annotation-port'
 

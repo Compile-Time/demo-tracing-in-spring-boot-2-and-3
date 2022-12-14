@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.custominstrumentation.annotation;
+package com.example.sleuthannotationport.instrumentation;
 
 
+import com.example.sleuthannotationport.docs.DocumentedSpan;
 import io.micrometer.common.docs.KeyName;
-import io.micrometer.observation.docs.ObservationDocumentation;
+import io.micrometer.tracing.docs.EventValue;
 
-public enum SleuthAnnotationSpan implements ObservationDocumentation {
+public enum SleuthAnnotationSpan implements DocumentedSpan {
 
 	/**
 	 * Span that wraps a @NewSpan or @ContinueSpan annotations.
@@ -32,10 +33,14 @@ public enum SleuthAnnotationSpan implements ObservationDocumentation {
 		}
 
 		@Override
-		public KeyName[] getLowCardinalityKeyNames() {
+		public KeyName[] getTagKeys() {
 			return Tags.values();
 		}
 
+		@Override
+		public EventValue[] getEvents() {
+			return Events.values();
+		}
 	};
 
 	/**
@@ -63,6 +68,42 @@ public enum SleuthAnnotationSpan implements ObservationDocumentation {
 			@Override
 			public String asString() {
 				return "method";
+			}
+		}
+
+	}
+
+
+	enum Events implements EventValue {
+
+		/**
+		 * Annotated before executing a method annotated with @ContinueSpan or @NewSpan.
+		 */
+		BEFORE {
+			@Override
+			public String getValue() {
+				return "%s.before";
+			}
+		},
+
+		/**
+		 * Annotated after executing a method annotated with @ContinueSpan or @NewSpan.
+		 */
+		AFTER {
+			@Override
+			public String getValue() {
+				return "%s.after";
+			}
+		},
+
+		/**
+		 * Annotated after throwing an exception from a method annotated
+		 * with @ContinueSpan or @NewSpan.
+		 */
+		AFTER_FAILURE {
+			@Override
+			public String getValue() {
+				return "%s.afterFailure";
 			}
 		}
 

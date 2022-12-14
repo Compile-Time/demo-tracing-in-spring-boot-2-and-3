@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.custominstrumentation.annotation;
+package com.example.sleuthannotationport.instrumentation;
 
 import io.micrometer.tracing.CurrentTraceContext;
 import io.micrometer.tracing.Span;
