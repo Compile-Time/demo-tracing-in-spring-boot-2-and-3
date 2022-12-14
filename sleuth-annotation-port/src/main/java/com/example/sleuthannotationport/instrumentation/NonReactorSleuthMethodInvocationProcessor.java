@@ -43,7 +43,8 @@ public class NonReactorSleuthMethodInvocationProcessor extends AbstractMicromete
 		// close it on completion
 		final boolean startNewSpan = newSpan != null || span == null;
 		if (startNewSpan) {
-			span = SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap(tracer().nextSpan());
+//			span = SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap(tracer().nextSpan());
+			span = tracer().nextSpan();
 			newSpanParser().parse(invocation, newSpan, span);
 			span.start();
 		}
