@@ -27,6 +27,9 @@ dependencies {
     // Bring common interfaces into project
     implementation project(':common-interface')
 
+    // Add Sleuth annotation port
+    implementation project(':sleuth-annotation-port')
+
     // Spring dependencies
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
