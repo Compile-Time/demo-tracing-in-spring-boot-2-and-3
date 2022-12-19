@@ -16,6 +16,7 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+import com.example.sleuthannotationport.data.SpanData;
 import io.micrometer.tracing.CurrentTraceContext;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
@@ -76,9 +77,8 @@ abstract class AbstractMicrometerMethodInvocationProcessor implements MethodInvo
 	}
 
 	void addTags(final MethodInvocation invocation, final Span span) {
-		SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap(span)
-				.tag(SleuthAnnotationSpan.Tags.CLASS, invocation.getThis().getClass().getSimpleName())
-				.tag(SleuthAnnotationSpan.Tags.METHOD, invocation.getMethod().getName());
+		span.tag(SpanData.Tags.CLASS.name(), invocation.getThis().getClass().getSimpleName())
+				.tag(SpanData.Tags.METHOD.name(), invocation.getMethod().getName());
 	}
 
 	void logEvent(final Span span, final String name) {
@@ -88,7 +88,7 @@ abstract class AbstractMicrometerMethodInvocationProcessor implements MethodInvo
 					+ "the same class then the aspect will not be properly resolved");
 			return;
 		}
-		SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap(span).event(name);
+		span.event(name);
 	}
 
 	String log(final ContinueSpan continueSpan) {
