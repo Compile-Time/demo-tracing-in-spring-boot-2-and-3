@@ -9,6 +9,7 @@ pluginManagement {
 
 rootProject.name = 'demo-tracing-in-spring-boot-2-and-3'
 
+include 'sleuth-annotation-port'
 include 'common-interface'
 include 'spring-boot-2-client'
 include 'spring-boot-2-server'
