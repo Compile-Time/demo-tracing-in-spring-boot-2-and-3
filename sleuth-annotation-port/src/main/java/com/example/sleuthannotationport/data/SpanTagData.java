@@ -1,4 +1,4 @@
-package com.example.sleuthannotationport;
+package com.example.sleuthannotationport.data;
 
 import io.micrometer.tracing.annotation.SpanTag;
 import lombok.Data;

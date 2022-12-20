@@ -1,5 +1,7 @@
-package com.example.sleuthannotationport;
+package com.example.sleuthannotationport.annotationprocessor;
 
+import com.example.sleuthannotationport.data.SpanData;
+import com.example.sleuthannotationport.data.SpanTagData;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.NewSpan;
 import io.micrometer.tracing.annotation.SpanTag;

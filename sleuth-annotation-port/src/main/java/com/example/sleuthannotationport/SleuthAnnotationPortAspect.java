@@ -1,5 +1,6 @@
 package com.example.sleuthannotationport;
 
+import com.example.sleuthannotationport.annotationprocessor.NewSpanProcessor;
 import io.micrometer.tracing.annotation.NewSpan;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
