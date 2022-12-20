@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.sleuthannotationport.autoconfig.SleuthAnnotationPortAutoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.sleuthannotationport.autoconfig.SleuthAnnotationPortAutoConfiguration

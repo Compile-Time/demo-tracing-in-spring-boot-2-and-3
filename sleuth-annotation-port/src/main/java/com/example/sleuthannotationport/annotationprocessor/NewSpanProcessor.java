@@ -1,12 +1,12 @@
 package com.example.sleuthannotationport.annotationprocessor;
 
+import com.example.sleuthannotationport.data.AnnotationJoinPointData;
 import com.example.sleuthannotationport.data.SpanData;
 import com.example.sleuthannotationport.data.SpanTagData;
 import com.example.sleuthannotationport.util.SpanTagParser;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.NewSpan;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.lang.reflect.Method;
@@ -18,16 +18,17 @@ public class NewSpanProcessor {
 
     private final Tracer tracer;
 
-    public Object createNewSpanFromJoinPoint(final ProceedingJoinPoint pjp,
-                                             final Method method,
-                                             final NewSpan atNewSpan) throws Throwable {
-        final List<SpanTagData> spanTagData = SpanTagParser.parseFromJoinPoint(pjp, method);
-        log.debug("SpanTags to tag: {}", spanTagData);
-        spanTagData.add(new SpanTagData(SpanData.Tags.CLASS.asString(), method.getDeclaringClass().getName()));
-        spanTagData.add(new SpanTagData(SpanData.Tags.METHOD.asString(), method.getName()));
+    public Object createNewSpanFromJoinPoint(final AnnotationJoinPointData<NewSpan> joinPointData) throws Throwable {
+        final var pjp = joinPointData.getProceedingJoinPoint();
+        final var atNewSpan = joinPointData.getAnnotation();
+        final var targetMethod = joinPointData.getTargetMethod();
+
+        final List<SpanTagData> spanTagData = SpanTagParser.parseFromJoinPoint(joinPointData);
+        spanTagData.add(new SpanTagData(SpanData.Tags.CLASS.asString(), targetMethod.getDeclaringClass().getName()));
+        spanTagData.add(new SpanTagData(SpanData.Tags.METHOD.asString(), targetMethod.getName()));
 
         final var span = this.tracer.nextSpan()
-                .name(getSpanName(atNewSpan, method));
+                .name(getSpanName(atNewSpan, targetMethod));
 
         try (final var ignore = this.tracer.withSpan(span.start())) {
             spanTagData.forEach(tagData -> span.tag(tagData.getTagName(), tagData.getTagValue()));
@@ -41,10 +42,10 @@ public class NewSpanProcessor {
         }
     }
 
-    private String getSpanName(final NewSpan atNewSpan, final Method method) {
+    private String getSpanName(final NewSpan atNewSpan, final Method targetMethod) {
         final String name;
         if (atNewSpan.name().isBlank() && atNewSpan.value().isBlank()) {
-            name = method.getName();
+            name = targetMethod.getName();
         } else {
             name = (!atNewSpan.name().isBlank()) ? atNewSpan.name() : atNewSpan.value();
         }

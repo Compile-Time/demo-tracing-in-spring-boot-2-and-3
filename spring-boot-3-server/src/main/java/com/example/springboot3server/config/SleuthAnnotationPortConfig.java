@@ -1,10 +1,10 @@
 package com.example.springboot3server.config;
 
-import com.example.sleuthannotationport.autoconfig.SleuthAnnotationPortAutoconfiguration;
+import com.example.sleuthannotationport.autoconfig.SleuthAnnotationPortAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration(proxyBeanMethods = false)
-@Import(SleuthAnnotationPortAutoconfiguration.class)
+@Import(SleuthAnnotationPortAutoConfiguration.class)
 public class SleuthAnnotationPortConfig {
 }
