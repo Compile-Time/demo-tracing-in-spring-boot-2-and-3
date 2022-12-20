@@ -16,6 +16,7 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+// Modification: Change Sleuth imports to Micrometer imports
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.annotation.ContinueSpan;
@@ -43,6 +44,8 @@ public class NonReactorSleuthMethodInvocationProcessor extends AbstractMicromete
 		// close it on completion
 		final boolean startNewSpan = newSpan != null || span == null;
 		if (startNewSpan) {
+			// Modification: Do not perform wrapping of `tracer.nextSpan()` with
+			// `SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap()`.
 			span = tracer().nextSpan();
 			newSpanParser().parse(invocation, newSpan, span);
 			span.start();

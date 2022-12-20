@@ -16,6 +16,11 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+/*
+Modifications:
+- Change Sleuth imports to Micrometer imports.
+- Import SpanData class.
+ */
 import com.example.sleuthannotationport.data.SpanData;
 import io.micrometer.tracing.CurrentTraceContext;
 import io.micrometer.tracing.Span;
@@ -77,6 +82,7 @@ abstract class AbstractMicrometerMethodInvocationProcessor implements MethodInvo
 	}
 
 	void addTags(final MethodInvocation invocation, final Span span) {
+		// Modification: Use `SpanData` enum for span tag names instead of `SleuthAnnotationSpan`.
 		span.tag(SpanData.Tags.CLASS.name(), invocation.getThis().getClass().getSimpleName())
 				.tag(SpanData.Tags.METHOD.name(), invocation.getMethod().getName());
 	}
@@ -88,6 +94,7 @@ abstract class AbstractMicrometerMethodInvocationProcessor implements MethodInvo
 					+ "the same class then the aspect will not be properly resolved");
 			return;
 		}
+		// Modification: Do not wrap span with `SleuthAnnotationSpan.ANNOTATION_NEW_OR_CONTINUE_SPAN.wrap()`.
 		span.event(name);
 	}
 

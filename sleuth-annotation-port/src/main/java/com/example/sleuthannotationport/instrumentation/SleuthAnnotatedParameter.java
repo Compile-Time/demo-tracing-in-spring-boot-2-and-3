@@ -16,7 +16,7 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
-
+// Modification: Change Sleuth imports to Micrometer imports.
 import io.micrometer.tracing.annotation.SpanTag;
 
 /**

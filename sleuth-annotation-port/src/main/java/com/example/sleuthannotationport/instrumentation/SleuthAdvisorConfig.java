@@ -16,6 +16,10 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+/* Modifications:
+- Change Sleuth imports to Micrometer imports
+- Import `Optional` class
+ */
 import io.micrometer.tracing.annotation.ContinueSpan;
 import io.micrometer.tracing.annotation.MethodInvocationProcessor;
 import io.micrometer.tracing.annotation.NewSpan;
@@ -55,6 +59,18 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 
 	private BeanFactory beanFactory;
 
+	/*
+	Modification: Remove `init()` method.
+	@PostConstruct
+	public void init() {
+		this.pointcut = buildPointcut();
+		this.advice = buildAdvice();
+		if (this.advice instanceof BeanFactoryAware) {
+			((BeanFactoryAware) this.advice).setBeanFactory(this.beanFactory);
+		}
+	}
+	 */
+
 	/**
 	 * Set the {@code BeanFactory} to be used when looking up executors by qualifier.
 	 */
@@ -65,6 +81,7 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 
 	@Override
 	public Advice getAdvice() {
+		// Modification: Create a new advice instance and set the bean factory if no advice instance exists.
 		return Optional.ofNullable(this.advice)
 				.orElseGet(() -> {
 					this.advice = buildAdvice();
@@ -77,6 +94,7 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 
 	@Override
 	public Pointcut getPointcut() {
+		// Modification: Create a new pointcut instance if no pointcut instance exists.
 		return Optional.ofNullable(this.pointcut)
 				.orElseGet(this::buildPointcut);
 	}
@@ -118,7 +136,7 @@ public class SleuthAdvisorConfig extends AbstractPointcutAdvisor implements Bean
 	}
 
 	/**
-	 * Checks if a class or a method is annotated with Sleuth related annotations.
+	 * Checks if a class or a method is is annotated with Sleuth related annotations.
 	 */
 	private final class AnnotationClassOrMethodOrArgsPointcut extends DynamicMethodMatcherPointcut {
 
