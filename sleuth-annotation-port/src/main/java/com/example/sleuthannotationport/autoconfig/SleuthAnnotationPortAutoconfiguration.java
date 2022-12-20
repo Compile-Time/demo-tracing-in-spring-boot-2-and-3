@@ -1,6 +1,6 @@
 package com.example.sleuthannotationport.autoconfig;
 
-import com.example.sleuthannotationport.NewSpanProcessor;
+import com.example.sleuthannotationport.annotationprocessor.NewSpanProcessor;
 import io.micrometer.tracing.Tracer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
