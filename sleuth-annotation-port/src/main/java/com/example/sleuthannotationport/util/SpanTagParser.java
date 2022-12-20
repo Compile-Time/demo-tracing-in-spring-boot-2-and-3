@@ -2,7 +2,6 @@ package com.example.sleuthannotationport.util;
 
 import com.example.sleuthannotationport.data.AnnotationJoinPointData;
 import com.example.sleuthannotationport.data.SpanTagData;
-import io.micrometer.tracing.annotation.NewSpan;
 import io.micrometer.tracing.annotation.SpanTag;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,13 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class processes a {@link ProceedingJoinPoint} to extract data from {@link SpanTag}s.
+ * <p>
+ * The implementation present in this class might not be as complete as the implementation in Spring Cloud Sleuth and
+ * does not provide any guarantees about being on par with the one in Sleuth. It exists mostly for demo purposes and to
+ * assess the difficulty creating an aspect for Sleuth's old annotations with Micrometer Tracing's APIs.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpanTagParser {
 

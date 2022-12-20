@@ -12,7 +12,13 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Slf4j
+/**
+ * This class processes a {@link ProceedingJoinPoint} for {@link NewSpan}.
+ * <p>
+ * The implementation present in this class might not be as complete as the implementation in Spring Cloud Sleuth and
+ * does not provide any guarantees about being on par with the one in Sleuth. It exists mostly for demo purposes and to
+ * assess the difficulty creating an aspect for Sleuth's old annotations with Micrometer Tracing's APIs.
+ */
 @RequiredArgsConstructor
 public class NewSpanProcessor {
 
