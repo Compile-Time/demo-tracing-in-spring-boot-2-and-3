@@ -28,7 +28,7 @@ POST http://localhost:8091/demo/new-span
 Content-Type: application/json
 
 {
-  "userName": "apple3",
+  "userName": "apple303030303",
   "groupName": ""
 }
 
