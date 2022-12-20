@@ -22,6 +22,8 @@ repositories {
 dependencies {
     // Bring common interfaces into project
     implementation project(':common-interface')
+    // Bring custom sleuth annotation autoconfiguration into project
+    implementation project(':sleuth-annotation-port')
 
     // Spring dependencies
     implementation 'org.springframework.boot:spring-boot-starter-web'
