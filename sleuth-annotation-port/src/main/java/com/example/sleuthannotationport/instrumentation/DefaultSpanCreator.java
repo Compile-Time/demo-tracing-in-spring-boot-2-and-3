@@ -16,6 +16,7 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+// Modification: Change Sleuth imports to Micrometer imports
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.annotation.NewSpan;
 import io.micrometer.tracing.annotation.NewSpanParser;
@@ -37,6 +38,7 @@ public class DefaultSpanCreator implements NewSpanParser {
 
     @Override
     public void parse(final MethodInvocation pjp, final NewSpan newSpan, final Span span) {
+        // Modification: Adjust the logic determining the value of `name`.
         final String name;
         if (newSpan != null) {
             if (StringUtils.hasText(newSpan.name())) {

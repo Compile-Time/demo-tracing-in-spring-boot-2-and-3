@@ -16,6 +16,7 @@
 
 package com.example.sleuthannotationport.instrumentation;
 
+// Modification: Change Sleuth imports to Micrometer imports.
 import io.micrometer.tracing.annotation.TagValueExpressionResolver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
