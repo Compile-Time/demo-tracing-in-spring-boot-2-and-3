@@ -31,6 +31,10 @@ public enum SpanData {
         Events(final String value) {
             this.value = value;
         }
+
+        public String asString() {
+            return value;
+        }
     }
 
 }
