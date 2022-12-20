@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
-public class SleuthAnnotationPortAutoconfiguration {
+public class SleuthAnnotationPortAutoConfiguration {
 
     @Bean
-    public NewSpanProcessor newSpanProcessor(final Tracer tracer) {
+    NewSpanProcessor newSpanProcessor(final Tracer tracer) {
         return new NewSpanProcessor(tracer);
     }
 
     @Bean
-    public ContinueSpanProcessor continueSpanProcessor(final Tracer tracer) {
+    ContinueSpanProcessor continueSpanProcessor(final Tracer tracer) {
         return new ContinueSpanProcessor(tracer);
     }
 
