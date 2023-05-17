@@ -1,25 +1,26 @@
-package com.example.springboot3server.demo.continuespan;
+package com.example.springboot3server.demo.tracingnewspan;
 
 import com.example.commoninterface.user.UserCreationRequest;
 import com.example.springboot3server.entity.UserGroup;
 import com.example.springboot3server.service.UserCreationService;
-import io.micrometer.common.annotation.ValueResolver;
-import io.micrometer.tracing.annotation.ContinueSpan;
+import io.micrometer.tracing.annotation.NewSpan;
 import io.micrometer.tracing.annotation.SpanTag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class TagResolverUserCreationService {
+public class TracingNewSpanUserCreationService {
 
     private final UserCreationService userCreationService;
 
     @Transactional
-    @ContinueSpan(log = "user.create")
+    @NewSpan("create new user and group (@NewSpan)")
     public UserGroup create(
-            @SpanTag(value = "user.creation.request", resolver = ValueResolver.class) final UserCreationRequest creationRequest
+            @SpanTag("user.creation.request") final UserCreationRequest creationRequest
     ) {
         return userCreationService.create(creationRequest);
     }

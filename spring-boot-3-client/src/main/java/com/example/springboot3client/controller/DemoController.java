@@ -167,4 +167,10 @@ public class DemoController {
         return requestFileCreation("observed/files", creationRequest);
     }
 
+    @PostMapping("micrometer/new-span")
+    @NewSpan(name = "request new user for Micrometer @NewSpan sample")
+    public ResponseEntity<UserCreationResult> demoSpanCreationWithMicrometerNewSpan(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("new-span/users", creationRequest);
+    }
+
 }

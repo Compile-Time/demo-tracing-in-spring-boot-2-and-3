@@ -66,7 +66,7 @@ has been pushed into the git history.
 Before starting the demo make sure that you started the infrastructure.
 
 ```sh
-cd docker-desktop
+cd docker-compose
 docker-compose -f docker-desktop.yml up -d
 # or
 docker-compose -f colima.yml up -d

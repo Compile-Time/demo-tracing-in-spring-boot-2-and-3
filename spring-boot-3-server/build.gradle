@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.0.0'
     implementation 'org.flywaydb:flyway-core'
 
     runtimeOnly 'org.postgresql:postgresql'
@@ -43,12 +44,16 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // Overwrite micrometer version
+    implementation "io.micrometer:micrometer-tracing:$micrometerTracing"
+    implementation "io.micrometer:micrometer-commons:1.11.0"
+
     // Tracing dependencies after Spring Boot 3
-    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    implementation "io.micrometer:micrometer-tracing-bridge-brave:$micrometerTracing"
+    implementation "io.zipkin.reporter2:zipkin-reporter-brave"
 
     // Required for /actuator/prometheus endpoint
-    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation "io.micrometer:micrometer-registry-prometheus"
 
     // Logback appender for Grafana Loki
     implementation "com.github.loki4j:loki-logback-appender:$loki4jVersion"
@@ -57,7 +62,7 @@ dependencies {
     adoc "io.micrometer:micrometer-docs-generator:$micrometerDocsVersion"
 
     // Dependency for testing observations
-    testImplementation 'io.micrometer:micrometer-observation-test'
+    testImplementation "io.micrometer:micrometer-observation-test:$micrometerObservation"
 }
 
 tasks.named('test') {

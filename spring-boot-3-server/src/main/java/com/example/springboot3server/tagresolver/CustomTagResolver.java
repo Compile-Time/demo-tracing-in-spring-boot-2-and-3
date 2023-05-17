@@ -1,7 +1,7 @@
 package com.example.springboot3server.tagresolver;
 
 import com.example.commoninterface.user.UserCreationRequest;
-import io.micrometer.tracing.annotation.TagValueResolver;
+import io.micrometer.common.annotation.ValueResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class CustomTagResolver {
 
     @Bean
-    public TagValueResolver userCreationRequestTagResolver() {
+    public ValueResolver userCreationRequestTagResolver() {
         return parameter -> {
             if (parameter instanceof final UserCreationRequest creationRequest) {
                 return String.format("u:%s - g:%s", creationRequest.userName(),

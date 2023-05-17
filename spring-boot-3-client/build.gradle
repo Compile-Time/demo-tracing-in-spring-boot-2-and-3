@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.0.0'
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -35,9 +36,13 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // Overwrite micrometer version
+    implementation "io.micrometer:micrometer-tracing:$micrometerTracing"
+    implementation "io.micrometer:micrometer-commons:1.11.0"
+
     // Tracing dependencies after Spring Boot 3
-    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    implementation "io.micrometer:micrometer-tracing-bridge-brave:$micrometerTracing"
+    implementation "io.zipkin.reporter2:zipkin-reporter-brave"
 
     // Required for /actuator/prometheus endpoint
     implementation 'io.micrometer:micrometer-registry-prometheus'
