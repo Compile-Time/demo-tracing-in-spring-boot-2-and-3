@@ -170,7 +170,12 @@ public class DemoController {
     @PostMapping("micrometer/new-span")
     @NewSpan(name = "request new user for Micrometer @NewSpan sample")
     public ResponseEntity<UserCreationResult> demoSpanCreationWithMicrometerNewSpan(@RequestBody final UserCreationRequest creationRequest) {
-        return requestUserCreation("new-span/users", creationRequest);
+        return requestUserCreation("micrometer/new-span/users", creationRequest);
+    }
+
+    @PostMapping("micrometer/continue-span")
+    public ResponseEntity<UserCreationResult> demoMicrometerContinueSpan(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("micrometer/continue-span/users", creationRequest);
     }
 
 }

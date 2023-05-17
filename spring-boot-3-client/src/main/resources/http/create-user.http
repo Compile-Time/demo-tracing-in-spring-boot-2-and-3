@@ -77,12 +77,23 @@ Content-Type: application/json
 
 ###
 
-// Showcase span creation with Micrometer NewSpan on a service method.
+// Showcase span creation with Micrometer's NewSpan on a service method.
 
-POST http://localhost:8091/demo/new-span
+POST http://localhost:8091/demo/micrometer/new-span
 Content-Type: application/json
 
 {
   "userName": "apple8",
+  "groupName": ""
+}
+###
+
+// Showcase span modification on the current span with Micrometer's ContinueSpan annotation.
+
+POST http://localhost:8091/demo/micrometer/continue-span
+Content-Type: application/json
+
+{
+  "userName": "apple9",
   "groupName": ""
 }
