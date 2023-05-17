@@ -178,4 +178,14 @@ public class DemoController {
         return requestUserCreation("micrometer/continue-span/users", creationRequest);
     }
 
+    @PostMapping("micrometer/continue-span/tag-resolver")
+    public ResponseEntity<UserCreationResult> demoMicrometerSpanTagResolver(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("micrometer/continue-span/users/tag-resolver", creationRequest);
+    }
+
+    @PostMapping("micrometer/continue-span/expression")
+    public ResponseEntity<UserCreationResult> demoMicrometerSpanTagExpression(@RequestBody final UserCreationRequest creationRequest) {
+        return requestUserCreation("micrometer/continue-span/users/expression", creationRequest);
+    }
+
 }

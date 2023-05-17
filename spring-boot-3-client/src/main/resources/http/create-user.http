@@ -97,3 +97,27 @@ Content-Type: application/json
   "userName": "apple9",
   "groupName": ""
 }
+
+###
+
+// Showcase custom TagValueResolver for SpanTag in a ContinueSpan method.
+
+POST http://localhost:8091/demo/continue-span/tag-resolver
+Content-Type: application/json
+
+{
+  "userName": "apple11",
+  "groupName": ""
+}
+
+###
+
+// Showcase expression for SpanTag in a ContinueSpan method.
+
+POST http://localhost:8091/demo/continue-span/expression
+Content-Type: application/json
+
+{
+  "userName": "apple12",
+  "groupName": ""
+}

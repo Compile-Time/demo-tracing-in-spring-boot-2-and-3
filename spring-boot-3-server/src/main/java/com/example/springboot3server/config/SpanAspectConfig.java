@@ -1,6 +1,6 @@
 package com.example.springboot3server.config;
 
-import io.micrometer.common.annotation.NoOpValueResolver;
+import com.example.commoninterface.user.UserCreationRequest;
 import io.micrometer.common.annotation.ValueExpressionResolver;
 import io.micrometer.common.annotation.ValueResolver;
 import io.micrometer.tracing.Tracer;
@@ -20,8 +20,14 @@ public class SpanAspectConfig {
 
     // You can provide your own resolvers - here we go with a noop example.
     @Bean
-    public ValueResolver valueResolver() {
-        return new NoOpValueResolver();
+    public ValueResolver userCreationRequestTagResolver() {
+        return parameter -> {
+            if (parameter instanceof final UserCreationRequest creationRequest) {
+                return String.format("u:%s - g:%s", creationRequest.userName(),
+                        creationRequest.groupName());
+            }
+            return null;
+        };
     }
 
     // Example of a SpEL resolver
