@@ -3,6 +3,9 @@
 This demo is a multi-project showcasing how to perform tracing in Spring Boot 2
 with Spring Cloud Sleuth and Spring Boot 3 with Micrometer Tracing.
 
+It was created to provide examples for the blog article 
+[Switching from Spring Cloud Sleuth to Micrometer Tracing / Micrometer Observation for Spring Boot 3](https://openvalue.blog/posts/2022/12/16/tracing-in-spring-boot-2-and-3/).
+
 The multi-project consists of the following subprojects:
 
 - `common-interface`: Project containing communication classes used between
