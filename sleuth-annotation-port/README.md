@@ -1,5 +1,10 @@
 # About this module
 
+**Note**: With Spring Boot 3.1 and Micrometer Tracing 1.1.0 the aspect oriented 
+approach of the Sleuth annotations is supported. See 
+[6.5. Aspect Oriented Programming (starting from Micrometer Tracing 1.1.0)](https://micrometer.io/docs/tracing#_aspect_oriented_programming_starting_from_micrometer_tracing_1_1_0) for 
+more information.
+
 This module contains a partial copy from Spring Cloud
 Sleuth's source code of the
 `org/springframework/cloud/sleuth/instrument/annotation` package. The copied
