@@ -29,6 +29,15 @@ If you need support for the Sleuth annotations but can not use Spring Boot
 `feature/micrometer-1.1.0-spring-boot-3.0.0` of this 
 repository for some alternative solutions.
 
+## Notes about this branch
+
+This branch attempts to use Spring Boot 3.0.0 with Micrometer Tracing 1.1.0 
+to make it possible to use the Sleuth annotation APIs. This is primarily 
+useful to perform a migration to Spring Boot 3.0.0 without having to wait 
+for a GA release of Spring Boot 3.1.0.
+
+By the time that Spring Boot 3.1.0 goes GA, this approach is obsolete.
+
 ## Infrastructure
 
 This project requires a tracing infrastructure with the following components
