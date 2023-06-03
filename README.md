@@ -14,6 +14,21 @@ The multi-project consists of the following subprojects:
 - `spring-boot-3-client`: A Spring Boot 3 client using a RestTemplate to
   query the Spring Boot 3 server.
 
+## Spring Sleuth API support in Spring Boot 3
+
+Spring Boot 3.0.0 and Micrometer Tracing 1.0.0 do not support the Sleuth API 
+annotations (@NewSpan, @ContinueSpan and @SpanTag). Support for these 
+annotation was added in Spring Boot 3.1 and Micrometer Tracing 1.1.0.
+
+For information about how to use these annotations, see [6.5. Aspect 
+Oriented Programming (starting from Micrometer Tracing 1.1.0)](https://micrometer.io/docs/tracing#_aspect_oriented_programming_starting_from_micrometer_tracing_1_1_0).
+
+If you need support for the Sleuth annotations but can not use Spring Boot 
+3.1 or are waiting for a 3.1 GA release, see the branches 
+`sleuth-aspect-code-copy`, `sleuth-aspect-manual-implementation` and 
+`feature/micrometer-1.1.0-spring-boot-3.0.0` of this 
+repository for some alternative solutions.
+
 ## Infrastructure
 
 This project requires a tracing infrastructure with the following components
