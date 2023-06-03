@@ -29,6 +29,17 @@ If you need support for the Sleuth annotations but can not use Spring Boot
 `feature/micrometer-1.1.0-spring-boot-3.0.0` of this 
 repository for some alternative solutions.
 
+## Notes about this branch
+
+This branch attempts a manual implementation of Sleuths aspect code for the
+`@NewSpan`, `@ContinueSpan` and `@SpanTag` annotations. The intention of 
+this branch to provide an alternative from copying the original Sleuth code 
+and to see how much effort it would be to provide such a manual 
+implementation for Micrometer Tracing 1.0.0.
+
+See `sleuth-aspect-code-copy` for an approach where the origin Sleuth code 
+is copied and modified to work for Micrometer Tracing 1.0.0.
+
 ## Infrastructure
 
 This project requires a tracing infrastructure with the following components
